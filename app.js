@@ -11,5 +11,6 @@ app.get('/version', (req, res) => {
 })
 
 app.listen(PORT, () => {
+  this will cause a failure
   console.log(`server started on port ${PORT}`)
 })
