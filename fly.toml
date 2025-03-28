@@ -26,7 +26,7 @@ primary_region = 'fra'
     path="/health"
 
 [experimental]
-  strategy = "canary
+  strategy = "canary"
 
 [[vm]]
   memory = '1gb'
