@@ -23,10 +23,8 @@ primary_region = 'fra'
   processes = ['app']
 
   [[http_service.http_checks]]
-    path="/health"
-    interval = "10s"
-    timeout = "2s"
-    method = "GET"
+    path = "/health"
+    success_statuses = [200] 
 
 
 [experimental]
