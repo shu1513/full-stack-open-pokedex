@@ -29,10 +29,7 @@ primary_region = 'fra'
   timeout = "5s"
   path = "/health"
 
-
-
-
-[experimental]
+[deploy]
   strategy = "canary"
 
 [[vm]]
