@@ -36,9 +36,7 @@ jobs:
   tag_release:
     needs: [simple_deployment_pipeline, deploy]
     runs-on: ubuntu-20.04
-    env:
-      CONDITION: ${{ github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
-    if: ${{ env.CONDITION == 'true' }}
+    if: ${{ github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
     steps:
         - uses: actions/checkout@v4
           with:
