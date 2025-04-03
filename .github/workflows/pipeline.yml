@@ -26,6 +26,8 @@ jobs:
         run: |
           curl -X POST -H "Content-Type: application/json" \
           -d '{"content":"✅ Test Succeeded!"}' ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Force Failure
+        run: exit 1
 
       - name: Send Discord Notification on Failure
         if: failure()
