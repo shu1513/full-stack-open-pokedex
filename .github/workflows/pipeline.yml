@@ -44,7 +44,7 @@ jobs:
   deploy:
     name: Deploy app
     runs-on: ubuntu-20.04
-    concurrency: deploy-group    # optional: ensure only one action runs at a time
+    concurrency: deploy-group    
     if: ${{ github.event_name == 'push'}}
     steps:
       - uses: actions/checkout@v4
