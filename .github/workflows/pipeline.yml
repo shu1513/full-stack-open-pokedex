@@ -19,6 +19,27 @@ jobs:
         run: npm install
       - name: run build step
         run: npm run build
+      - name: Test build Success
+        uses: rjstone/discord-webhook-notify@v1
+        if: success()
+        with:
+            severity: info
+            details: Test Succeeded!
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test build Failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: failure()
+        with:
+            severity: error
+            details: Test Failed!
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test Cancelled
+        uses: rjstone/discord-webhook-notify@v1
+        if: cancelled()
+        with:
+            severity: warn
+            details: Test Cancelled!
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   
   deploy:
     name: Deploy app
