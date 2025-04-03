@@ -31,7 +31,9 @@ jobs:
         if: failure()
         run: |
           curl -X POST -H "Content-Type: application/json" \
-          -d '{"content":"❌ Test Failed!"}' ${{ secrets.DISCORD_WEBHOOK }}
+          -d '{
+                "content": "❌ Test Failed!\nCommit: `${{ github.sha }}`\nAuthor: `${{ github.actor }}`"
+              }' ${{ secrets.DISCORD_WEBHOOK }}
 
       - name: Send Discord Notification if Cancelled
         if: cancelled()
