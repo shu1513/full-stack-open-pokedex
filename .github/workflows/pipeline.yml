@@ -21,28 +21,24 @@ jobs:
         run: npm run build
       - name: Debug Webhook URL
         run: echo "DISCORD_WEBHOOK=${{ secrets.DISCORD_WEBHOOK }}"
-
-      - name: Test build Success
-        uses: rjstone/discord-webhook-notify@v1
+      - name: Send Discord Notification on Success
         if: success()
-        with:
-            severity: info
-            details: Test Succeeded!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-      - name: Test build Failure
-        uses: rjstone/discord-webhook-notify@v1
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{"content":"✅ Test Succeeded!"}' ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Send Discord Notification on Failure
         if: failure()
-        with:
-            severity: error
-            details: Test Failed!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-      - name: Test Cancelled
-        uses: rjstone/discord-webhook-notify@v1
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{"content":"❌ Test Failed!"}' ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Send Discord Notification if Cancelled
         if: cancelled()
-        with:
-            severity: warn
-            details: Test Cancelled!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{"content":"⚠️ Test Cancelled!"}' ${{ secrets.DISCORD_WEBHOOK }}
+
   
   deploy:
     name: Deploy app
